@@ -8,6 +8,10 @@ Global command line tool for initializing new project with webpack boilerplate. 
 
 ## Creating a new project
 
-`start-project <name>`
+```
+start-project <name>
+cd <name>
+npm install
+```
 
-This will create an empty project the current directory. Including the optional name argument will use that project name for the root folder and `package.json`.
+This will create an empty project the current directory. Including the optional name argument will use that project name for the root folder and `package.json`. If no project name is provided it will default to `new-project`
