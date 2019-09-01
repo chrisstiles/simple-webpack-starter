@@ -1,0 +1,19 @@
+{
+  "name": "start-project",
+  "version": "1.0.0",
+  "description": "Command line tool for initializing new project with webpack boilerplate",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+    "start-project": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Stiles",
+  "license": "ISC",
+  "dependencies": {
+    "edit-json-file": "^1.3.1",
+    "ncp": "^2.0.0"
+  }
+}
