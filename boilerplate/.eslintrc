@@ -1,6 +1,5 @@
 {
   "rules": {
-    "indent": [2, 2],
     "no-unused-vars": ["warn"]
   },
   "env": {
