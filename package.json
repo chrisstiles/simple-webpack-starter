@@ -1,5 +1,5 @@
 {
-  "name": "start-project",
+  "name": "simple-webpack-starter",
   "version": "1.0.0",
   "description": "Command line tool for initializing new project with webpack boilerplate",
   "main": "index.js",
