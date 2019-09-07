@@ -13,7 +13,6 @@
   "rules": {
     "no-console": "off",
     "no-constant-condition": "off",
-		"quotes": ["error", "single", { "allowTemplateLiterals": true }],
 		"no-unused-vars": ["warn", { "args": "none" }],
   }
 }
