@@ -1,7 +1,8 @@
 {
   "name": "simple-webpack-starter",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Command line tool for initializing new project with webpack boilerplate",
+  "homepage": "https://github.com/chrisstiles/simple-webpack-starter",
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
