@@ -7,7 +7,7 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 const config = {
   entry: './src/index.js',
   devServer: {
-    contentBase: './docs',
+    contentBase: './dist',
     port: 8888,
     noInfo: true,
     quiet: true,

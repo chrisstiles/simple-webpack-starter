@@ -9,7 +9,7 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js --mode development --open",
     "build": "webpack --config webpack.prod.js --mode production",
-    "preview": "npm run build && http-server docs -o"
+    "preview": "npm run build && http-server dist -o"
   },
   "dependencies": {},
   "devDependencies": {
