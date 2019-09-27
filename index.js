@@ -4,11 +4,18 @@ const fs = require('fs-extra');
 const Confirm = require('prompt-confirm');
 const editJsonFile = require('edit-json-file');
 const { exec } = require('child_process');
-const colors = require('colors');
 const commandExists = require('command-exists').sync;
 const Ora = require('ora');
 const name = process.argv[2] || 'new-project';
 const projectPath = `./${name}`;
+require('colors');
+
+
+// Log package version number
+if (name === '-v') {
+  console.log(require('./package.json').version);
+  process.exit();
+}
 
 if (fs.existsSync(projectPath)) {
   console.log('The folder '.yellow + `/${name}`.magenta.bold + ' already exists. Creating a project here will erase the previous contents of that folder.\n'.yellow)
