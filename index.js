@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs-extra');
+const validate = require('validate-npm-package-name');
 const Confirm = require('prompt-confirm');
 const editJsonFile = require('edit-json-file');
 const { exec } = require('child_process');
@@ -10,10 +11,16 @@ const name = process.argv[2] || 'new-project';
 const projectPath = `./${name}`;
 require('colors');
 
+// Flags
+if (name.charAt(0) === '-') {
+  switch(name.substring(1)) {
+    case 'v':
+      console.log(require('./package.json').version);
+      break;
+    default:
+      console.log('Invalid flag'.red.bold);
+  }
 
-// Log package version number
-if (name === '-v') {
-  console.log(require('./package.json').version);
   process.exit();
 }
 
