@@ -12,7 +12,7 @@ Global command line tool for initializing new project with webpack boilerplate. 
 start-project <name>
 ```
 
-This will create an empty project and install its dependencies. Including the optional name argument will use that project name for the root folder and `package.json`. If no project name is provided it will default to `new-project`.
+This will create an empty project and install its dependencies. Including the optional name argument will use that project name for the root folder and `package.json`. If no project name is provided it will default to `new-project`. If git is installed it will also initialize a new repository for you.
 
 ## Development
 

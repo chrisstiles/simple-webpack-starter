@@ -5,7 +5,8 @@ const Confirm = require('prompt-confirm');
 const editJsonFile = require('edit-json-file');
 const { exec } = require('child_process');
 const colors = require('colors');
-const ora = require('ora');
+const commandExists = require('command-exists').sync;
+const Ora = require('ora');
 const name = process.argv[2] || 'new-project';
 const projectPath = `./${name}`;
 
@@ -19,6 +20,7 @@ if (fs.existsSync(projectPath)) {
         if (error) {
           console.error(error);
         } else {
+          process.stdout.write('\n');
           createProject();
         }
       });
@@ -29,43 +31,69 @@ if (fs.existsSync(projectPath)) {
 }
 
 function createProject() {
-  console.log('\nCreating project...');
+  const spinner = new Ora({
+    text: 'Creating project...'.yellow.bold
+  });
+
+  spinner.start();
 
   fs.copy(`${__dirname}/boilerplate`, name, error => {
     if (error) {
-      console.error(error);
-      console.log('\n Unable to create project'.red);
+      spinner.fail('Unable to create project\n'.red.bold);
+      console.log(error);
     } else {
-      // Set project name in package.json
+      
       const file = editJsonFile(`${projectPath}/package.json`);
       file.set('name', name);
       file.save();
 
-      console.log('\nProject created in ' + `/${name}\n`.magenta.bold);
+      spinner.succeed('Project created'.bold);
 
-      const spinner = ora({
-        text: 'Installing dependencies',
-        stream: process.stdout
-      }).start();
-
-      exec(`npm install`, { cwd: projectPath }, (error, stdout, stderr) => {
-        if (error) {
-          spinner.warn('Your project was created but there was a problem installing dependencies');
-          console.log('\nYou can install them manually by running ' + 'npm install'.cyan + ' in your project folder.');
+      const installDependencies = () => {
+        if (!commandExists('npm')) {
+          spinner.warn('Unable to install dependencies, npm is not installed\n'.yellow);
+          console.log('\n✅  Done!\n'.bold.green);
         } else {
-          const packageText = stdout.match(/(added.*\ds)/);
+          spinner.start('Installing dependencies'.cyan.bold);
 
-          if (packageText && packageText.length) {
-            const text = packageText[0].charAt(0).toUpperCase() + packageText[0].slice(1);
-            spinner.succeed(text);
-          } else {
-            spinner.succeed('Dependencies already installed');
-          }
+          exec(`npm install`, { cwd: projectPath }, (error, stdout, stderr) => {
+            if (error) {
+              spinner.warn('Your project was created but there was a problem installing dependencies');
+              console.log('\nYou can install them manually by running ' + 'npm install'.cyan + ' in your project folder.');
+            } else {
+              const packageText = stdout.match(/(added.*\ds)/);
+
+              if (packageText && packageText.length) {
+                const text = packageText[0].charAt(0).toUpperCase() + packageText[0].slice(1);
+                spinner.succeed(text.bold);
+              } else {
+                spinner.succeed('Dependencies already installed');
+              }
+            }
+
+            console.log('\n✅  Done!\n'.bold.green);
+            console.log('To start the development servier run ' + 'npm run start'.cyan + ' in your project folder.\n');
+          });
         }
+      }
 
-        console.log('\nDone!\n'.green.bold);
-        console.log('To start the development servier run ' + 'npm run start'.cyan + ' in your project folder.\n');
-      });
+      // Initialize git repository
+      if (!commandExists('git')) {
+        spinner.warn('Unable to intialize repository, git is not installed'.yellow);
+        installDependencies();
+      } else {
+        exec(`git init`, { cwd: projectPath }, (error, stdout, stderr) => {
+          if (error) {
+            spinner.warn('Your project was created but there was a problem installing dependencies');
+            console.log('\nYou can install them manually by running ' + 'npm install'.cyan + ' in your project folder.');
+          } else {
+            fs.writeFileSync(`${projectPath}/.gitignore`, 'node_modules/\ndist/', { cwd: projectPath });
+
+            spinner.succeed('Initialized git repository!'.bold);
+            installDependencies();
+          }
+        });
+      }
     }
   });
 }
