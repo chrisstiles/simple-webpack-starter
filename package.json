@@ -1,6 +1,6 @@
 {
   "name": "simple-webpack-starter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Command line tool for initializing new project with webpack boilerplate",
   "homepage": "https://github.com/chrisstiles/simple-webpack-starter",
   "main": "index.js",
@@ -13,6 +13,12 @@
   },
   "author": "Chris Stiles",
   "license": "ISC",
+  "keywords": [
+    "webpack",
+    "boilerplate",
+    "create project",
+    "start project"
+  ],
   "dependencies": {
     "colors": "^1.3.3",
     "command-exists": "^1.2.8",
