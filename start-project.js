@@ -10,12 +10,6 @@ const Ora = require('ora');
 require('colors');
 
 // Get project name from arguments.
-// let projectName = 'new-project';
-
-// if (process.argv.length >= 3) {
-//   const passedName = 
-// }
-
 const name = process.argv.slice(2).join(' ') || 'new-project';
 const projectPath = `./${name}`;
 
@@ -30,9 +24,12 @@ if (name.charAt(0) === '-') {
   }
 }
 
+// Check if project name conforms to NPM requirements
 const nameIsValid = validate(name).validForNewPackages;
 
-if (!nameIsValid) {
+if (nameIsValid) {
+  run();
+} else {
   console.log(name.magenta.bold + ' is not a valid project name.\n'.yellow);
   const prompt = new Confirm('Would you like to continue?'.yellow);
 
@@ -45,11 +42,6 @@ if (!nameIsValid) {
     }
   });
 }
-
-// // Validate project name
-// console.log(validate(name));
-// process.exit();
-// // if (!validate())
 
 function run() {
   if (fs.existsSync(projectPath)) {
