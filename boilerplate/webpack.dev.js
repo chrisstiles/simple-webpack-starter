@@ -1,24 +1,26 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const sassRegex = /\.(scss|sass|css)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 const config = {
   entry: './src/index.js',
   devServer: {
-    contentBase: './dist',
+    contentBase: path.join(__dirname, 'src/views'),
     port: 8888,
     noInfo: true,
     quiet: true,
     hot: true,
-    clientLogLevel: 'none'
+    inline: true,
+    clientLogLevel: 'info',
+    watchContentBase: true
   },
   resolve: {
     alias: {
       styles: path.join(__dirname, 'src/styles')
     }
   },
+  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {
@@ -43,7 +45,12 @@ const config = {
               sourceMap: true
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       },
       {
@@ -61,17 +68,22 @@ const config = {
               sourceMap: true
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      title: 'My Application',
+      template: path.join(__dirname, 'src/views/index.html'),
       filename: 'index.html'
-    }),
-    new MiniCssExtractPlugin()
+    })
   ]
 };
 

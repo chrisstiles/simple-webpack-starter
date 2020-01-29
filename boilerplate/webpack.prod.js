@@ -1,9 +1,9 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const sassRegex = /\.(scss|sass|css)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
@@ -18,6 +18,7 @@ const config = {
       styles: path.join(__dirname, 'src/styles')
     }
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -35,13 +36,7 @@ const config = {
         exclude: sassModuleRegex,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: false,
-              sourceMap: true
-            }
-          },
+          'css-loader',
           'sass-loader'
         ]
       },
@@ -56,8 +51,7 @@ const config = {
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
               getLocalIdent: (context, localIdentName) => {
                 return localIdentName.toLowerCase();
-              },
-              sourceMap: true
+              }
             }
           },
           'sass-loader'
@@ -80,7 +74,8 @@ const config = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      title: 'My Application',
+      template: path.join(__dirname, 'src/views/index.html'),
       filename: 'index.html'
     }),
     new MiniCssExtractPlugin()
