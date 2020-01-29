@@ -22,6 +22,8 @@ if (name.charAt(0) === '-') {
     default:
       console.log('Invalid flag'.red.bold);
   }
+
+  process.exit();
 }
 
 // Check if project name conforms to NPM requirements
