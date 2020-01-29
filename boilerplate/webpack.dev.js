@@ -12,7 +12,7 @@ const config = {
     quiet: true,
     hot: true,
     inline: true,
-    clientLogLevel: 'info',
+    clientLogLevel: 'silent',
     watchContentBase: true
   },
   resolve: {
