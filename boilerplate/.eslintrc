@@ -13,6 +13,6 @@
   "rules": {
     "no-console": "off",
     "no-constant-condition": "off",
-    "no-unused-vars": ["warn", { "args": "none" }],
+    "no-unused-vars": ["warn", { "args": "none" }]
   }
 }
