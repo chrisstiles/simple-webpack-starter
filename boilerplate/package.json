@@ -1,14 +1,14 @@
 {
-  "name": "stiles-webpack-boilerplate",
-  "version": "1.0.0",
+  "name": "webpack-boilerplate",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js --mode development --open",
-    "build": "webpack --config webpack.prod.js --mode production",
+    "start": "webpack-dev-server --config webpack.config.js --mode development --open",
+    "build": "webpack --config webpack.config.js --mode production",
     "preview": "npm run build && http-server dist -o"
   },
   "dependencies": {},

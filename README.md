@@ -16,7 +16,7 @@ This will create an empty project and install its dependencies. Including the op
 
 ## Development
 
-In your project's root folder, run `npm run start` to launch the development server. By default your application will be served from port `8888`. You can change this by editing the port number in `webpack.dev.js`.
+In your project's root folder, run `npm run start` to launch the development server. By default your application will be served from port `8888`. You can change this by editing the port number in `webpack.config.js`.
 
 ## Building your application
 
